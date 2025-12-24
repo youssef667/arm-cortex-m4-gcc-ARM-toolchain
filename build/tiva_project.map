@@ -1,0 +1,91 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x00000000         0x00040000         xr
+SRAM             0x20000000         0x00008000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD build\obj\main.o
+LOAD build\obj\startup.o
+START GROUP
+LOAD C:/Program Files (x86)/Arm/GNU Toolchain mingw-w64-i686-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/15.2.1/thumb/v7e-m/nofp\libgcc.a
+LOAD C:/Program Files (x86)/Arm/GNU Toolchain mingw-w64-i686-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/15.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libc.a
+END GROUP
+                0x20008000                        _estack = (ORIGIN (SRAM) + LENGTH (SRAM))
+
+.isr_vector     0x00000000       0x40
+ *(.isr_vector)
+ .isr_vector    0x00000000       0x40 build\obj\startup.o
+
+.comment        0x00000000       0x45
+ .comment       0x00000000       0x45 build\obj\main.o
+                                 0x46 (size before relaxing)
+
+.ARM.attributes
+                0x00000000       0x2c
+ .ARM.attributes
+                0x00000000       0x2e build\obj\main.o
+ .ARM.attributes
+                0x0000002e       0x21 build\obj\startup.o
+
+.text           0x00000000      0x198
+ *(.text*)
+ .text          0x00000000      0x14c build\obj\main.o
+                0x00000000                SysTickDisable
+                0x00000020                SysTickEnable
+                0x0000003c                SysTickPeriodSet
+                0x00000068                Leds_Init
+                0x000000d8                main
+ .text          0x0000014c       0x44 build\obj\startup.o
+                0x0000014c                Reset_Handler
+                0x00000176                Default_Handler
+ *(.rodata*)
+ .rodata        0x00000190        0x8 build\obj\main.o
+                0x00000190                frecuency
+                0x00000198                        _etext = .
+
+.glue_7         0x00000198        0x0
+ .glue_7        0x00000198        0x0 linker stubs
+
+.glue_7t        0x00000198        0x0
+ .glue_7t       0x00000198        0x0 linker stubs
+
+.vfp11_veneer   0x00000198        0x0
+ .vfp11_veneer  0x00000198        0x0 linker stubs
+
+.v4_bx          0x00000198        0x0
+ .v4_bx         0x00000198        0x0 linker stubs
+
+.iplt           0x00000198        0x0
+ .iplt          0x00000198        0x0 build\obj\main.o
+
+.rel.dyn        0x00000198        0x0
+ .rel.iplt      0x00000198        0x0 build\obj\main.o
+
+.data           0x20000000        0x4 load address 0x00000198
+                0x20000000                        _sdata = .
+ *(.data*)
+ .data          0x20000000        0x4 build\obj\main.o
+                0x20000000                y
+ .data          0x20000004        0x0 build\obj\startup.o
+                0x20000004                        _edata = .
+                0x00000198                        _sidata = LOADADDR (.data)
+
+.igot.plt       0x20000004        0x0 load address 0x0000019c
+ .igot.plt      0x20000004        0x0 build\obj\main.o
+
+.bss            0x20000004        0x4 load address 0x0000019c
+                0x20000004                        _sbss = .
+ *(.bss*)
+ .bss           0x20000004        0x4 build\obj\main.o
+                0x20000004                x
+ .bss           0x20000008        0x0 build\obj\startup.o
+ *(COMMON)
+                0x20000008                        _ebss = .
+OUTPUT(build\tiva_project.elf elf32-littlearm)
+LOAD linker stubs
