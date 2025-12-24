@@ -1,6 +1,7 @@
 #include "tm4c123gh6pm_registers.h"
 const long long frecuency = 16000000;
-
+int x;
+int y = 9 ;
 /* Enable the SystTick Timer to run using the System Clock with Frequency 16Mhz and Count one second */
 void SysTickDisable (void)
 {
