@@ -10,7 +10,7 @@ REM  CONFIGURATION
 
 REM ============================================
 
-set GCC_PATH="C:\Program Files (x86)\Arm\GNU Toolchain mingw-w64-i686-arm-none-eabi\bin"
+set GCC="C:\Program Files (x86)\Arm\GNU Toolchain mingw-w64-i686-arm-none-eabi\bin\arm-none-eabi-"
 
 set OPENOCD_PATH="C:\OpenOCD\bin"
 

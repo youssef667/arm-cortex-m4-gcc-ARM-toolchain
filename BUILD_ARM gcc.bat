@@ -5,7 +5,7 @@ echo   Building TIVA C Project
 echo =================================
 echo.
 
-REM Set paths - لا تلمس هذه المسارات!
+REM Set paths - don't touch this path 
 set GCC="C:\Program Files (x86)\Arm\GNU Toolchain mingw-w64-i686-arm-none-eabi\bin\arm-none-eabi-"
 set PROJ=tiva_project
 
